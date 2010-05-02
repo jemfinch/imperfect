@@ -1,0 +1,29 @@
+The rationale behind Imperfect is exactly that: programmers are
+imperfect.  We write code that goes wrong, code that costs money when
+it fails, code that harms people when it fails.  What we need is not a
+language that makes it easier to write code, but a language that makes
+it harder to write incorrect code.
+
+"As a slow-witted human being I have a very small head and I had
+better learn to live with it and to respect my limitations and give
+them full credit, rather than try to ignore them, for the latter vain
+effort will be punished by failure." (Dijkstra, EWD249)
+
+"My conclusion is that it is becoming most urgent to stop to consider
+programming primarily as the minimization of a cost/performance
+ratio.  We should recognize that already now programming is much more
+than an intellectual challenge: the art of programming is the art of
+organizing complexity, of mastering multitude and avoiding its bastard
+chaos as effectively as possible." (Dijkstra, EWD249)
+
+"When we had no computers, we had no programming problem either. When
+we had a few computers, we had a mild programming problem. Confronted
+with machines a million times as powerful, we are faced with a
+gigantic programming problem." (Dijkstra, Visuals for BP's Venture
+Research Conference)
+
+"The way to write really reliable code is to try to use simple tools
+that take into account typical human frailty, not complex tools with
+hidden side effects and leaky abstractions that assume an infallible
+programmer."
+(Joel Spolsky, http://joelonsoftware.com/articles/Wrong.html)

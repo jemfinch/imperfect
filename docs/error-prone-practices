@@ -1,0 +1,139 @@
+Here's a list of error prone programming practices that Imperfect
+avoids by design:
+
+Problem:  Programmers write methods which return values and have
+          side effects.
+Solution: Imperfect will infer (and allow declaration of) the purity of
+          methods; it will refuse to allow a method declared "pure" to
+          call any method (on any object) declared "impure" and will
+          refuse to allow a method declared "pure" to reassign
+          members or modify any not explicitly declared modifiable in
+          pure methods.
+Proposed: Imperfect will not allow impure methods to return values.
+Rejected: Cannot represent the write(2) syscall.
+
+
+Problem:  Programmers write methods which dereference null
+          pointers.
+Solution: Imperfect will not have pointers, only references which
+          cannot be null.  Nullity will be provided by a (parametric)
+          "option" type which must be decomposed via a 'case'
+          expression, ensuring the null case is cared for.
+
+
+Problem:  Programmers forget to check the return values of methods
+          which can return error values.
+Solution: Exceptions cannot be ignored by the program; they must be
+          caught at some point or they will abort the program (with a
+          stack trace, of course).
+
+
+Problem:  Programmers write methods which are not strongly safe
+          against exceptions: they modify data prior to an exception
+          being thrown and do not reset it to its previous state, or
+          they leak resources if an exception is thrown, etc.
+Solution: Imperfect will reject methods which call impure methods
+          prior to potentially uncaught exceptions.
+Proposed: Imperfect will provide compiler-generated "transation"
+          proxies which will allow a set of impure operations to be
+          defined prior to any calls to exception-raising methods; the
+          transaction can be committed (an impure operation) after all
+          potentially exception-raising methods have been called.
+Question: Can transactions queue up throwing operations?
+
+
+Problem:  Programmers fail to release resources acquired by their
+          program (memory, file descriptors, locks, etc.)
+Solution: Objects will have (and programmers will be able to define)
+          destructors which ensure that resources are released when
+          objects are destroyed.
+
+
+Problem:  Programmers write destructors which can throw exceptions,
+          wreaking havoc with exception safety and garbage
+          collection.
+Solution: Imperfect will enforce that destructors provide the nothrow
+          guarantee.
+
+
+Problem:  Programmers write destructors which can allocate memory,
+          wreaking havoc with garbage collection.
+Proposed: Imperfect will only allow destructors to allocate memory on
+          the stack.
+
+
+Problem:  Programmers spend too much time and effort on argument
+          validation.  The exceptions that result here are too
+          frequently raised and unreasonably caught.  Commonly the
+          requirements placed upon callers is not explicitly
+          documented.
+Solution: Design-by-Contract will be made simpler and easier by
+          integration into Imperfect's method definitions.  The
+          contracts will be enforced at runtime; only pure, nothrow
+          methods can be used in the contracts.
+
+
+Problem:  Programmers write code which overflows machine integers and
+          wraps around from positive to negative.
+Solution: The default integers in Imperfect will be arbitrary
+          precision.  Machine words will be accessed through different
+          types and a different interface.
+
+
+Problem:  Programmers forget the order of arguments in methods
+          taking multiple arguments of the same type.
+Solution: Imperfect will use a syntax similar to Smalltalk, where all
+          arguments are effectively keyword arguments.
+
+
+Problem:  Programmers forget to validate input from untrusted
+          sources (e.g., XSS errors).
+Solution: Imperfect will provide an easy way to define subtypes of
+          other types, produced by injection (validation) and allowing
+          functions to be defined which only accept the subtypes (but
+          which use them as if they were the real types).
+
+
+Problem:  Programmers use == to compare objects which may presently be
+          equivalent, but upon mutation are not.
+Solution: == will not be defined on non-value objects (i.e., objects
+          with impure methods).  The only comparator valid on such
+          objects will be "is" for comparing object identities.  This
+          will not be overridable.
+
+
+Problem:  Programmers write code which overruns its buffers.
+Proposal: DJB suggests arrays which automatically extend.  Would work
+          on write, but not on read: the types wouldn't support it.
+
+
+Problem:  Programmers attempt to write to files opened for reading, or
+          read from files opened for writing.
+Solution: Distiguish between such files via the type system.  Use
+          phantom type techniques and parametric polymorphism to
+          implement subtyping.
+
+Problem:  Programmers write code which is off-by-one; it iterates over
+          N-1 or N+1 elements of an array, rather than N.
+
+
+Problem:  Programmers use invalidated iterators, either because the
+          containers over which they iterated have been collected, or
+          because the containers have been modified since the creation
+          of the iterator.
+
+
+Problem:  Programmers return references to stack-allocated objects,
+          which become hanging references as soon as the function
+          returns.
+
+
+Problem:  Programmers cannot determine who is responsible for
+          destroying an object returned by a method.
+
+
+Problem:  Programmers add or remove things from hash tables while
+          they're being iterated over.
+
+
+Problem:  Growable, mutable arrays have no upper limit on their size.
