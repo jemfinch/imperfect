@@ -4,6 +4,19 @@ it fails, code that harms people when it fails.  What we need is not a
 language that makes it easier to write code, but a language that makes
 it harder to write incorrect code.
 
+Many people complain about the complexity of C++, and those who know
+C++ know that the common answer to such complaints is that programmers
+should use a reasonable subset of C++, frequently referred to as
+"Modern C++" and eschew the groty bits inherited from its sordid
+history.  The problem with that scheme is obvious: different
+programmers and different libraries use different subsets, and so the
+complexity of a project of significant size is rarely diminished by
+the use of a subset in the program itself, since that program depends
+on other programmers and other libraries, each with access to the
+entire, complicated language.  As Hoare said, "If you want a language
+with no subsets, you must make it small."[1]
+
+=====
 "As a slow-witted human being I have a very small head and I had
 better learn to live with it and to respect my limitations and give
 them full credit, rather than try to ignore them, for the latter vain
@@ -27,3 +40,33 @@ that take into account typical human frailty, not complex tools with
 hidden side effects and leaky abstractions that assume an infallible
 programmer."
 (Joel Spolsky, http://joelonsoftware.com/articles/Wrong.html)
+
+"I claim that a programmer has only done a decent job when his program
+is flawless and not when his program is functioning properly only most
+of the time. But I have had plenty of opportunity to observe that this
+suggestion is repulsive to many professional programmers: they object
+to it violently! Apparently, many programmers derive the major part of
+their intellectual satisfaction and professional excitement from not
+quite understanding what they are doing." (Dijkstra, EWD288)
+
+"Programming languages on the whole are very much more complicated
+than they used to be: object orientation, inheritance, and other
+features are still not really being thought through from the point of
+view of a coherent and scientifically well-based discipline or a
+theory of correctness. My original postulate, which I have been
+pursuing as a scientist all my life, is that one uses the criteria of
+correctness as a means of converging on a decent programming language
+design—one which doesn’t set traps for its users, and ones in which
+the different components of the program correspond clearly to
+different components of its specification, so you can reason
+compositionally about it. [...] The tools, including the compiler,
+have to be based on some theory of what it means to write a correct
+program." (Hoare, Oral history interview by Philip L. Frana, 17 July
+2002)
+=====
+
+[1] "The Emperor's Old Clothes".  The quotation continues, " You
+    include only those features which you know to be needed for every
+    single application of the language and which you know to be
+    appropriate for every single hardware configuration on which the
+    language is implemented."

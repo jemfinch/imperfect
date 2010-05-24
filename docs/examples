@@ -1,0 +1,62 @@
+1.
+
+1 abs. # Alternatively, abs: 1
+1 neg. # Alternatively, neg: 1
+
+1 + 2.
+1 * 2.
+1 - 2.
+1 / 2.
+
+1 isEvenlyDivisibleBy: 2
+
+if (a < b) {
+  a
+} else {
+  b
+}
+
+while (a < b) {
+  a += 1
+} ensures {
+  first.a < last.a
+}
+
+function(Boolean) x(T) isEvenlyDivisibleBy: y(T)
+requires {
+  y != T.zero
+}
+ensures {
+  y * (x / y) == x
+}
+
+method x isEvenlyDivisibleBy: y {
+  return (x mod: y) == 0
+}
+
+method x(Rational) isEvenlyDivisbleBy y(Rational) {
+  return (x.numerator * y.denominator) isEvenlyDivisibleBy: \
+         (y.numerator * x.denominator)
+}
+
+type Rational<T> {
+  numerator(T)
+  denominator(T)
+} invariant {
+  denominator != T.zero
+  (numerator greatestCommonDenominator: denominator) == 1
+}
+
+function(Nullable<T>) x(T) sqrt
+ensures {
+  result != Nullable<T>.null or (result.value * result.value == x)
+}
+ 
+
+method(R) something(Nullable<T>) withValue: withBlock withoutValue: withoutBlock {
+  if (something != Nullable<T>.null) {
+    withBlock callWith: something.value
+  } else {
+    withoutBlock call
+  }
+}
