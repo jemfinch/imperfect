@@ -1,0 +1,25 @@
+[Bernstein 2007]
+  "Some thoughts on security after ten years of qmail 1.0"
+  http://cr.yp.to/qmail/qmailsec-20071101.pdf
+  Points taken:
+    "Enforcing explicit data flow"
+      This is handled by produces/consumes and the various data
+      movement operators that prevent aliasing.
+    "Simplifying integer semantics"
+      This is handled by making arbitrary-precision integers the
+      default numeric type.
+  Points rejected:
+    Bernstein argues for arrays that automatically grow or instantiate
+    elements when indexed.  That seems to me like a recipe for
+    unexpected memory exhaustion.  There's already a perfectly good
+    data structure for those things: a hash table or a sparse array.
+
+[Hoare 1973]
+  "Hints on programming language design"
+  http://www.eecs.berkeley.edu/~necula/cs263/handouts/hoarehints.pdf
+  Points taken:
+    "Efficient object code"
+      Hoare insists that programming languages still need to make
+      efficient use of the machine, because the problems we wish to
+      solve are growing faster than the machines on which we can solve
+      them.  He's right.

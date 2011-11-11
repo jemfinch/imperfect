@@ -1,0 +1,8 @@
+function fib_recursive (consumes Integer n) produces (Integer nth_fib)
+requires n >= 0 {
+  if n = 0 {
+    nth_fib <- 1;
+  } else {
+    nth_fib <- fib_recursive (n - 1) + fib_recursive (n - 2);
+  }
+}

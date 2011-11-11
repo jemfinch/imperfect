@@ -1,0 +1,36 @@
+Languages are very much defined by the types they typically use.  In
+Python code we see dictionaries all over the place; in Lisp we see
+mutable cons singly-linked lists, in OCaml we see immutable cons
+lists, in C++ we see std::vector and std::map.
+
+We need to choose the right default types for Imperfect.
+
+The default integer will be unbounded, arbitrary precision.  It's
+unclear whether we should roll our own or use a library.
+
+For an array-like container, it's an uncommonly known fact that C++
+users ought to default to std::deque instead of std::vector.  It grows
+in a more predictable way and it doesn't copy elements as it grows.
+Neither does it contribute to memory fragmentation since it doesn't
+require that all its elements be contiguous.  The ability to
+{push,pop}_front is just gravy.  A similarly implemented Deque will be
+the default array/list/vector type in Imperfect, largely for the
+predictable memory usage and {push,pop}_front benefit.
+
+For a key-value map, the default will be a balanced binary tree of
+some sort, similar to C++'s std::map.  Operations on it are O(log n)
+rather than O(1) in the average case, but an adversary (or bad luck)
+cannot change its complexity like they can with a hash table.
+Furthermore, it provides more than a hash table does and will be
+convenient for the sort of one-off programming that cares more about
+time-to-completion than logarithmic factors.
+
+For a string, the default will be...
+  ? Ropes/Cords?
+  ? vstr/ustr C library? http://www.and.org/ustr/
+
+The default RNG will use ISAAC.  Why not be cryptographically secure
+if we can be secure so efficiently?  Mersenne Twister will, of course,
+be available as well.
+
+For password hashing, we'll offer an interface to bcrypt.
